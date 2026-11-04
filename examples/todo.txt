@@ -1,0 +1,7 @@
+(A) 2026-11-02 Review the launch checklist +website @work due:2026-11-06 note:launch.md
+(B) 2026-11-03 Send the revised proposal to Maya +studio @email due:2026-11-05
+2026-11-03 Pick up coffee and oat milk +home @errands
+2026-11-01 Make room for a weekly review +personal @desk due:2026-11-08 rec:1w
+(C) 2026-11-02 Sketch ideas for the reading corner +home @weekend
+2026-11-04 Reconcile November invoices +studio @finance due:2026-11-30 rec:+1m t:2026-11-25 invoice:pending
+x 2026-11-03 2026-11-01 Book a table for Friday +personal @phone

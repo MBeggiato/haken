@@ -1,0 +1,1 @@
+{"extends":"./tsconfig.json","compilerOptions":{"types":["node"],"allowImportingTsExtensions":true,"noEmit":true},"include":["server/**/*.ts","src/lib/**/*.ts","tests/**/*.ts","scripts/**/*.ts"],"exclude":["src/lib/state.svelte.ts"]}

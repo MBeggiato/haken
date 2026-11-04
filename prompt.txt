@@ -1,0 +1,370 @@
+# Coding Benchmark: Local todo.txt Web Application
+
+## Role
+
+You are an experienced full-stack software engineer and UI/UX designer.
+
+Your task is to build a complete, functional, polished web application for managing local `todo.txt` files.
+
+This is a **one-shot coding benchmark**. You must independently plan, implement, test, and document the application without asking follow-up questions.
+
+Do not stop after creating a scaffold or prototype. Deliver a working application.
+
+## 1. Objective
+
+Build a modern web-based alternative to the terminal application **Tuxedo**, using the standard `todo.txt` format as the single source of truth.
+
+The application must read, parse, display, create, edit, and persist tasks in a local `todo.txt` file.
+
+The application's core functionality should be comparable to Tuxedo, adapted to a modern graphical web interface.
+
+### References
+
+Official todo.txt specification:
+
+https://raw.githubusercontent.com/todotxt/todo.txt/refs/heads/master/README.md
+
+Tuxedo reference implementation and features:
+
+https://github.com/webstonehq/tuxedo
+
+Read and understand both references before implementing. If external resources are inaccessible, proceed using the requirements in this prompt and document the limitation.
+
+## 2. Mandatory Tech Stack
+
+- Frontend: Svelte 5
+- Language: TypeScript, strict mode
+- Build tooling: Vite
+- Styling: Tailwind CSS
+- Backend: Node.js
+- Persistence: Local plain-text files
+- Package manager: npm
+
+No database, authentication service, cloud storage, external AI service, or third-party task-management backend.
+
+Use additional dependencies only when they provide meaningful value.
+
+## 3. File Management
+
+The application must:
+
+- Read a local `todo.txt` file.
+- Create the file if it does not exist.
+- Support configurable file paths through environment variables.
+- Preserve compatibility with other todo.txt applications.
+- Persist changes immediately.
+- Use atomic file writes where practical.
+- Detect external file modifications and update the UI automatically.
+- Avoid silently overwriting external changes.
+- Support a sibling `done.txt` archive.
+- Support an optional `inbox.txt` for capturing new tasks.
+- Preserve unknown metadata and extensions when editing tasks.
+- Avoid unnecessary rewriting or reordering of unrelated task lines.
+
+The backend must perform all filesystem operations. Never expose unrestricted filesystem access to the browser.
+
+## 4. todo.txt Parser
+
+Implement the official todo.txt specification correctly.
+
+Support:
+
+- Priority `(A)` through `(Z)`
+- Optional creation dates
+- Completed tasks prefixed with `x`
+- Completion dates
+- Projects (`+project`)
+- Contexts (`@context`)
+- Multiple projects and contexts
+- Arbitrary `key:value` metadata
+- Tasks without structured metadata
+- Empty files and unusual but valid task lines
+
+Also support Tuxedo-style extensions:
+
+- `due:YYYY-MM-DD`
+- `rec:[+]N{d,b,w,m,y}`
+- `t:` threshold metadata
+- `note:path`
+
+Parsing and serialization must be separated from UI components.
+
+Unknown tokens must not be discarded.
+
+Round-trip correctness is critical: loading and saving an unchanged task must not unexpectedly alter its contents.
+
+## 5. Task Management
+
+Implement:
+
+- Create tasks
+- Edit tasks
+- Delete tasks
+- Mark tasks complete or incomplete
+- Assign and remove priorities
+- Assign multiple projects and contexts
+- Edit due dates
+- Duplicate tasks
+- Reorder tasks
+- Select multiple tasks
+- Bulk complete and delete
+- Undo recent modifications, up to 50 steps
+- Archive completed tasks to `done.txt`
+- Browse archived tasks
+- Restore archived tasks
+- Permanently delete archived tasks
+
+Provide both a convenient structured editor and access to the raw todo.txt representation.
+
+## 6. Recurring Tasks
+
+Implement recurrence rules compatible with Tuxedo:
+
+- Daily
+- Business days
+- Weekly
+- Monthly
+- Yearly
+- Configurable intervals
+
+Support both recurrence modes:
+
+- Strict recurrence (`rec:+1m`): calculate the next occurrence from the previous due date.
+- Relative recurrence (`rec:1w`): calculate the next occurrence from the completion date.
+
+Completing a recurring task must mark the current occurrence complete and create its next occurrence.
+
+Handle month boundaries, leap years, and missing due dates predictably.
+
+## 7. Search, Filtering and Organization
+
+Implement:
+
+- Instant full-text search
+- Project filters
+- Context filters
+- Priority filters
+- Due-date filters
+- Completed/incomplete filters
+- Combined filters
+- Saved searches
+- Sorting by priority, due date, creation date and file order
+- Optional grouping by project, context or due-date status
+
+Show useful task counts for active filters.
+
+Support relative due-date queries such as `due:+1w` and `due:-3d`.
+
+## 8. User Interface and Experience
+
+Create a polished, responsive productivity application.
+
+The visual design should feel like a thoughtfully designed modern desktop application, not a generic CRUD dashboard.
+
+### Layout
+
+Use a three-region layout:
+
+**Left sidebar**
+- Navigation
+- Inbox
+- All tasks
+- Today
+- Upcoming
+- Completed
+- Archive
+- Projects
+- Contexts
+- Saved searches
+
+**Main area**
+- Task list
+- Search and filtering
+- Sorting controls
+- Quick task creation
+- Bulk actions
+- Clear empty states
+
+**Right detail panel**
+- Task information
+- Editable metadata
+- Dates
+- Recurrence
+- Raw todo.txt line
+- Linked notes
+
+The right panel should be collapsible.
+
+### Design requirements
+
+- Strong typography and visual hierarchy
+- Restrained color palette
+- Excellent spacing and alignment
+- Light and dark themes
+- Comfortable and compact density options
+- Subtle interactions and transitions
+- Accessible controls
+- Responsive layouts
+- Clear feedback for successful and failed operations
+- No unnecessary decorative gradients
+- No excessive cards or nested containers
+- No emoji as primary UI icons
+
+Prioritize usability, clarity and consistency.
+
+## 9. Keyboard Interaction
+
+Provide keyboard-first interaction inspired by Tuxedo.
+
+At minimum:
+
+- `j` / `k`: navigate tasks
+- `n`: create task
+- `e`: edit task
+- `x`: toggle completion
+- `dd`: delete task
+- `/`: search
+- `u`: undo
+- `?`: keyboard shortcut help
+- `Ctrl+K` or `Ctrl+P`: command palette
+- `Esc`: close overlays or cancel actions
+
+Implement a searchable command palette containing the application's major actions.
+
+Keyboard shortcuts must not interfere with text inputs or editing controls.
+
+## 10. Additional Features
+
+Implement the following where applicable:
+
+**Natural-language task creation**
+
+Provide deterministic, offline parsing for common English expressions such as:
+
+- "Buy milk tomorrow"
+- "Pay rent every month on the first"
+- "Call dentist next Friday"
+- "Review report high priority"
+
+Allow users to review the generated todo.txt representation before saving.
+
+**Notes**
+
+Support `note:path` metadata and provide a way to view and edit linked local Markdown notes through the backend.
+
+**Inbox**
+
+Read tasks from `inbox.txt` and provide a way to import them into the main task list.
+
+**Mobile capture**
+
+Provide a lightweight mobile-friendly task capture interface accessible from another device on the local network.
+
+Protect write endpoints with an appropriate access token and document the limitations of HTTP on untrusted networks.
+
+**Settings**
+
+Provide settings for theme, density, default sorting, visible metadata, file locations and relevant application behavior.
+
+Persist settings independently from task data.
+
+## 11. Architecture and Code Quality
+
+Use a clear separation between:
+
+- todo.txt parsing and serialization
+- File persistence
+- Task business logic
+- Backend API
+- Frontend state management
+- UI components
+
+Requirements:
+
+- Strict TypeScript
+- No unnecessary abstractions
+- No monolithic application component
+- Reusable UI components
+- Clear error handling
+- Input validation
+- No hardcoded absolute filesystem paths
+- No fake or placeholder functionality
+- No silent data loss
+
+Prefer straightforward, maintainable implementations over clever but fragile solutions.
+
+## 12. Testing
+
+Implement automated tests for critical functionality.
+
+At minimum, test:
+
+- Parsing and serialization
+- Priority handling
+- Completion dates
+- Projects and contexts
+- Metadata preservation
+- Recurrence calculations
+- Task modifications
+- Archiving
+- File persistence
+
+Include edge cases such as empty files, malformed metadata, month boundaries and externally modified files.
+
+## 13. Developer Experience
+
+Provide:
+
+- `npm install`
+- `npm run dev`
+- `npm run build`
+- `npm test`
+
+The application should start with minimal setup.
+
+Include a README describing:
+
+- Installation
+- Running the application
+- Configuration
+- File storage
+- Supported features
+- Keyboard shortcuts
+- Known limitations
+
+Provide a small example `todo.txt` file containing realistic tasks and metadata.
+
+## 14. Execution Instructions
+
+You are expected to implement the application, not merely describe how to build it.
+
+Follow these rules:
+
+1. Make reasonable technical decisions independently.
+2. Do not ask clarifying questions.
+3. Do not produce only pseudocode or a project plan.
+4. Create all necessary project files.
+5. Implement actual working functionality.
+6. Run available checks and tests.
+7. Fix errors discovered during verification.
+8. Do not claim features work unless implemented.
+9. Clearly document any incomplete requirements.
+10. Do not modify files outside the project directory, except explicitly configured task data used for testing.
+
+Prioritize correctness, data integrity and a working end-to-end application over superficial feature completeness.
+
+## 15. Final Response
+
+When finished, provide:
+
+1. A concise summary of the implemented application.
+2. The project structure.
+3. Commands to install, run and test it.
+4. A list of implemented features.
+5. A list of incomplete or missing features.
+6. Test and build results, distinguishing executed checks from unverified claims.
+7. Important architectural decisions.
+
+Do not present unfinished functionality as complete.
+
+**Begin implementation immediately.**

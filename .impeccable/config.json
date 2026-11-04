@@ -1,0 +1,17 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "side-tab",
+        "value": "*",
+        "files": [
+          "src/app.css"
+        ],
+        "createdAt": "2026-11-04T19:55:19.075Z",
+        "reason": "The only accent side border is the conventional Markdown blockquote marker; it is semantic quote styling, not a card edge."
+      }
+    ]
+  }
+}

@@ -1,0 +1,8 @@
+(A) [P1] Implement backup and restore for per-user task files, notes, and images +DataSafety
+(A) [P1] Add in-app user invites and account access management +Accounts
+(B) [P2] Add due-date reminders and notifications +Workflow
+(B) [P2] Add per-user import and export +DataSafety
+(B) [P2] Add persistent sessions and per-device session revocation +Accounts
+(C) [P3] Add optional shared tasks and project collaboration +Collaboration
+(C) [P3] Add offline and PWA support +Platform
+(C) [P3] Sync preferences across browsers and devices +Platform
