@@ -106,6 +106,8 @@ dialog:focus-visible { outline:none; }
 .brand-mark { display:block; width:27px; height:27px; flex-shrink:0; }
 .brand-frame { fill:none; stroke:var(--accent); stroke-width:5.2; stroke-linecap:round; stroke-linejoin:round; }
 .brand-check { fill:none; stroke:var(--ink); stroke-width:6.5; stroke-linecap:round; stroke-linejoin:round; }
+.quick-add:focus-within { background:var(--accent-soft); }
+.quick-add input:focus-visible { outline:none; }
 .editor-help { padding: 14px; border: 1px solid var(--line); border-radius: 5px; margin-bottom: 16px; }
 .editor-help p { color: var(--muted); font-size: 11px; margin: 6px 0; }
 .editor-error { color: var(--danger); font-size: 12px; margin: 12px 0; }

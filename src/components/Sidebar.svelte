@@ -1,7 +1,6 @@
 <script lang="ts">
   import Icon from './Icon.svelte';
   import Brand from './Brand.svelte';
-  import CircleHelp from '@lucide/svelte/icons/circle-help';
   import { parse } from '../lib/todo';
   import { app, persistPreferences } from '../lib/state.svelte';
   let { view, scope, navigate, filter, browse, settings, palette }: {view:string;scope:{project?:string;context?:string};navigate:(v:string)=>void;filter:(s:string)=>void;browse:(type:'project'|'context',value:string)=>void;settings:()=>void;palette:()=>void} = $props();
